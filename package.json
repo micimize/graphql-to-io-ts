@@ -1,63 +1,19 @@
 {
-  "name": "scheduled.life",
+  "name": "graphql-to-io-ts",
   "version": "0.1.0",
-  "description": "schedule your life",
-  "private": true,
+  "description": "generate typescript and io-ts types using graphql-code-generator",
+  "peerDependencies": {
+    "io-ts": "^1.x"
+  },
   "dependencies": {
-    "antd": "^3.3.0",
-    "apollo-client-preset": "^1.0.8",
-    "babel-polyfill": "^6.26.0",
-    "graphql": "<0.12",
-    "graphql-tag": "^2.8.0",
-    "io-ts": "^1.0.5",
-    "moment": "^2.21.0",
-    "postgraphile": "^4.0.0-beta.2",
-    "react": "^16.2.0",
-    "react-apollo": "^2.0.1",
-    "react-dom": "^16.2.0",
-    "react-router": "^4.2.0",
-    "react-router-dom": "^4.2.2",
-    "uuid": "^3.1.0"
-  },
-  "scripts": {
-    "start": "react-scripts-ts-antd start",
-    "build": "react-scripts-ts-antd build",
-    "test": "react-scripts-ts-antd test --env=jsdom",
-    "eject": "react-scripts-ts-antd eject",
-    "serve": "postgraphile -c 'postgres://localhost:5432/scheduled_life' -s scheduled_life --cors --watch",
-    "introspect-schema": "postgraphile -c 'postgres://localhost:5432/scheduled_life' -s scheduled_life -X -p 5001 --export-schema-json ./types/schema.json --export-schema-graphql ./types/schema.gql",
-    "generate-types": "node node_modules/.bin/gql-gen --file types/schema.json --project types/templates/ --out ./src/io-types/gen/ './src/**/*.gql'",
-    "refresh-types": "npm run introspect-schema && npm run generate-types"
-  },
-  "devDependencies": {
-    "@playlyfe/gql": "^2.6.0",
-    "@types/node": "^9.4.6",
-    "@types/react": "^16.0.40",
-    "@types/react-dom": "^16.0.4",
-    "@types/react-hot-loader": "^3.0.6",
-    "@types/react-infinite-scroller": "^1.0.4",
-    "@types/react-router": "^4.0.19",
-    "@types/react-router-dom": "^4.2.3",
-    "@types/uuid": "^3.4.3",
-    "babel-core": "^6.26.0",
-    "babel-loader": "^7.1.4",
-    "babel-plugin-transform-class-properties": "^6.24.1",
-    "babel-preset-env": "^1.6.1",
-    "babel-preset-react": "^6.24.1",
     "graphql-code-generator": "^0.8.21",
-    "linewrap": "^0.2.1",
-    "react-app-rewired": "^1.4.1",
-    "react-hot-loader": "^4.0.0",
-    "react-scripts": "^1.0.14",
-    "react-scripts-ts-antd": "2.13.2",
-    "ts-import-plugin": "^1.4.4",
-    "ts-loader": "^4.0.1",
-    "ts-node": "^3.2.0",
-    "typescript": "^2.7.2"
+    "linewrap": "^0.2.1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://bitbucket.org/micimize/scheduled.life.git"
+    "url": "git+https://github.com/micimize/graphql-to-io-ts.git"
   },
+  "license": "MIT",
+  "bin": "./generate.sh",
   "author": "Michael Joseph Rosenthal"
 }
