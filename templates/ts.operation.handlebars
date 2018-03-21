@@ -1,0 +1,58 @@
+{{#*inline "fragments"}}
+{{#if hasFragmentsSpread}}{{#if hasFields}} & {{/if}}{{#each fragmentsSpread}}{{fragmentName}}.Fragment{{#unless @last}} & {{/unless}}{{/each}}{{/if}}{{#if hasInlineFragments}}{{#if hasFields}} & ({{/if}}{{#each inlineFragments}}{{onType}}{{#unless @last}} | {{/unless}}{{/each}}{{#if hasFields}}){{/if}}{{/if}}
+{{/inline}}
+{{#*inline "iotsFragments"}}
+{{#if hasFragmentsSpread}}{{#each fragmentsSpread}}{{fragmentName}}.Fragment{{#unless @last}},{{/unless}}
+{{/each}}{{/if}}{{#if hasInlineFragments}}{{#if hasFields}} & ({{/if}}{{#each inlineFragments}}{{onType}}{{#unless @last}} | {{/unless}}{{/each}}{{#if hasFields}}){{/if}}{{/if}}
+{{/inline}}
+
+import * as t from 'io-ts'
+{{#eachImport this }}
+import { {{ name }} } from '../{{ file }}'
+{{/eachImport}}
+type Integer = number
+
+export namespace {{ toPascalCase name }} {
+  export type Variables = {
+    {{> tsFields variables }}
+  }
+
+  /* model types */
+  {{#eachBackwards innerModels }}
+  export type {{ modelType }} ={{#if hasFields}} {
+  {{#unless hasInlineFragments}}
+    __typename: '{{ schemaBaseType }}'
+  {{else}}
+    __typename: {{#each inlineFragments}}{{onType}}["__typename"]{{#unless @last}} | {{/unless}}{{/each}};
+  {{/unless}}
+    {{> tsFields fields }}
+  }{{/if}}{{> fragments this }}
+  {{~/eachBackwards}}
+
+  /* operation */
+  export type {{ toPascalCase operationType }} ={{#if hasFields}} {
+    __typename: '{{ toPascalCase operationType }}'
+    {{> tsFields fields }}
+  }{{/if~}}
+  {{> fragments this }}
+
+  /* io-ts */
+  export const Variables = {{> iotsFields variables }}
+
+  // model types
+  {{#eachBackwards innerModels }}
+  export const {{ modelType }} = t.intersection([ {{#if hasFields}} 
+    t.type({ __typename: {{#unless hasInlineFragments}}t.literal('{{
+      schemaBaseType
+    }}'){{else}}t.union([{{#each inlineFragments}}{{onType}}["__typename"]{{#unless @last}}, {{/unless}}{{/each}}])
+  {{/unless}} }),
+      {{> iotsFields fields }},
+  {{~/if}}{{> iotsFragments this }}])
+  {{/eachBackwards}}
+
+  // operation
+  export const {{ toPascalCase operationType }} = t.intersection([ {{#if hasFields}} 
+    t.type({ __typename: t.literal('{{ toPascalCase operationType }}') }),
+    {{> iotsFields fields }}, {{/if}}{{> iotsFragments this }}])
+
+}

@@ -1,0 +1,8 @@
+{{#eachImport this }}
+import { {{ name }} } from '../{{ file }}'
+{{/eachImport}}
+
+import { {{ name }} } from '../CustomScalars'
+
+{{ multilineComment description }}
+export { {{ name }} }

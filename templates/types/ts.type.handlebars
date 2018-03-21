@@ -1,0 +1,25 @@
+import * as t from 'io-ts'
+{{#eachImport this }}
+{{ relativeImport this path='./types'}}
+{{/eachImport}}
+
+type Integer = number
+
+{{ multilineComment description }}
+export interface {{ name }}{{#if hasInterfaces}} extends {{#each interfaces}}{{this}}{{#unless @last}},{{/unless}}{{/each}}{{/if}} {
+  {{> tsFields fields }}
+}{{#each fields}}{{# if hasArguments }}
+
+export interface {{ toPascalCase name }}{{ toPascalCase ../name }}Args {
+  {{> tsFields arguments }}
+}
+{{/if}}{{/each}}
+
+{{ multilineComment description }}
+export const {{ name }} = {{#wrapRecursive}}{{#if hasInterfaces}}t.intersection([
+{{#each interfaces}}  {{this}},
+{{/each}}  {{/if}}{{> iotsFields fields parentName=name }}{{#if hasInterfaces}}
+]){{/if}}{{/wrapRecursive}}
+{{#each fields}}{{# if hasArguments }}
+export const {{ toPascalCase name }}{{ toPascalCase ../name }}Args = {{> iotsFields arguments }}
+{{/if}}{{/each}}

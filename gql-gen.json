@@ -1,0 +1,18 @@
+{
+  "out": "./types/iots-gen/",
+  "flattenTypes": true,
+  "primitives": {
+    "String": "string",
+    "Float": "number",
+    "Boolean": "boolean",
+    "Int": "Integer",
+    "ID": "string"
+  },
+  "customHelpers": {
+    "iotsPrimitive": "./types/templates/io-ts-primative.js",
+    "wrapRecursive": "./types/templates/io-ts-recursive.js",
+    "eachBackwards": "./types/templates/each-backwards.js",
+    "multilineComment": "./types/templates/multiline-comment.js",
+    "relativeImport": "./types/templates/relative-import.js"
+  }
+}

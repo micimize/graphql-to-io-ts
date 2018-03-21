@@ -1,0 +1,12 @@
+import * as t from 'io-ts'
+import { createEnum } from '../utils'
+
+{{ multilineComment description }}
+export enum {{name}}Enum {
+  {{#each values }}{{value}} = '{{ value }}',{{#unless @last}}
+  {{/unless}}{{/each}}
+}
+
+{{ multilineComment description }}
+export const {{ name }} = createEnum<{{name}}Enum>({{name}}Enum, '{{ name }}')
+export type {{ name }} = t.TypeOf<typeof {{ name }}>

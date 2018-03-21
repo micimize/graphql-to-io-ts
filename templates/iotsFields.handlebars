@@ -1,0 +1,10 @@
+t.intersection([
+  t.type({
+  {{#each this}}{{#if isRequired}}{{#if description }}  {{ multilineComment description }}
+{{/if}}  {{ name }}: {{#if isArray}}t.array({{/if}}{{ iotsPrimitive type ../parentName }}{{#if isArray}}){{/if}},
+  {{/if}}{{/each~}} }),
+  t.partial({
+  {{#each this}}{{#if name }}{{#unless isRequired}}{{#if description }}  {{ multilineComment description }}
+{{/if}}  {{ name }}: t.union([ {{#if isArray}}t.array({{/if}}{{ iotsPrimitive type ../parentName }}{{#if isArray}}){{/if}}, t.null ]),
+  {{/unless}}{{/if}}{{/each~}} })
+])
