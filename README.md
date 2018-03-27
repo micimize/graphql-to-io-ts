@@ -2,7 +2,7 @@
 Thin wrapper around [graphql-code-generator](https://github.com/dotansimha/graphql-code-generator) that utilizes [custom templates](https://github.com/dotansimha/graphql-code-generator/blob/master/packages/graphql-codegen-generators/CUSTOM_TEMPLATES.md) to generate both native typescript and [io-ts](https://github.com/gcanti/io-ts) types with the included templates.
 
 ## usage
-Put something like the following in your `package.json`, then run `yarn generate-types`:
+`npm install graphql-to-io-ts@0.1.3`, then put something like the following in your `package.json`, then run `yarn generate-types`:
 ```json
 {
   "scripts": {
@@ -60,5 +60,5 @@ export function decoder<O extends Op>(operation: O) {
 }
 ```
 
-
 Note that in typescript you can't `import` from outside the project directory.
+
