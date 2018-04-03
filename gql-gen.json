@@ -1,5 +1,4 @@
 {
-  "out": "./types/iots-gen/",
   "flattenTypes": true,
   "primitives": {
     "String": "string",
@@ -9,10 +8,10 @@
     "ID": "string"
   },
   "customHelpers": {
-    "iotsPrimitive": "./types/templates/io-ts-primative.js",
-    "wrapRecursive": "./types/templates/io-ts-recursive.js",
-    "eachBackwards": "./types/templates/each-backwards.js",
-    "multilineComment": "./types/templates/multiline-comment.js",
-    "relativeImport": "./types/templates/relative-import.js"
+    "iotsPrimitive": "node_modules/graphql-to-io-ts/helpers/io-ts-primative.js",
+    "wrapRecursive": "node_modules/graphql-to-io-ts/helpers/io-ts-recursive.js",
+    "eachBackwards": "node_modules/graphql-to-io-ts/helpers/each-backwards.js",
+    "multilineComment": "node_modules/graphql-to-io-ts/helpers/multiline-comment.js",
+    "relativeImport": "node_modules/graphql-to-io-ts/helpers/relative-import.js"
   }
 }

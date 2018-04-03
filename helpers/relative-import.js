@@ -1,7 +1,7 @@
 const path = require('path')
 const { SafeString } = require('handlebars')
 const structure = {
-  "root": "./",
+  "root": ".",
   "type": "./types",
   "input-type": "./types",
   "interface": "./types",
@@ -13,5 +13,5 @@ module.exports = function relativeImport ({ name, type, file }, { hash }) {
     structure[file] ||
     structure.root
   ) || '.'
-  return new SafeString(`import { ${name} } from '${ relativePath }/${ file }'`)
+  return new SafeString(`import { ${name} } from './${ relativePath }/${ file }'`)
 }

@@ -9,7 +9,7 @@
 {{/inline}}
 
 {{#eachImport this }}
-import { {{ name }} } from '../{{ file }}';
+{{ relativeImport this path='./'}}
 {{/eachImport}}
 export namespace {{name}} {
   export type Fragment = {

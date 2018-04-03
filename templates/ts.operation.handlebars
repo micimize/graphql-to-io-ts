@@ -8,7 +8,7 @@
 
 import * as t from 'io-ts'
 {{#eachImport this }}
-import { {{ name }} } from '../{{ file }}'
+{{ relativeImport this path='./'}}
 {{/eachImport}}
 type Integer = number
 

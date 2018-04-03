@@ -1,5 +1,5 @@
 {{#eachImport this }}
-import { {{ name }} } from '../{{ file }}'
+{{ relativeImport this path='./'}}
 {{/eachImport}}
 
 import { {{ name }} } from '../CustomScalars'
