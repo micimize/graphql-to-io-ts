@@ -5,13 +5,9 @@ const primitives = {
   "Int": "t.Integer",
   "ID": "t.string"
 }
-module.exports = function iotsPrimitive (type, { hash: { subtype = '' } = {} } = {}) {
-  return (
-    primitives[type] ||
-    type && `${type}${subtype}` ||
-    '')
+module.exports = function iotsPrimitive (type, name) {
+  return (name && type && (name === type)) ?
+    'self' : 
+    (primitives[type] || type || '')
 }
 
-// unneeded because everything basically has to be recursive anyways
-//(name && type && (name === type)) ?
-//'self' :

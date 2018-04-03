@@ -3,6 +3,6 @@ t.intersection([
   {{#each this}}{{#if isRequired}}  {{ name }}: {{#if isArray}}t.array({{/if}}{{ iotsPrimitive type ../parentName }}{{#if isArray}}){{/if}},
   {{/if}}{{/each~}} }),
   t.partial({
-  {{#each this}}{{#if name }}{{#unless isRequired}}  {{ name }}: t.union([ {{#if isArray}}t.array({{/if}}{{ iotsPrimitive type }}{{#if isArray}}){{/if}}, t.null ]),
+  {{#each this}}{{#if name }}{{#unless isRequired}}  {{ name }}: t.union([ {{#if isArray}}t.array({{/if}}{{ iotsPrimitive type ../name }}{{#if isArray}}){{/if}}, t.null ]),
   {{/unless}}{{/if}}{{/each~}} })
 ])

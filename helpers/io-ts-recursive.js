@@ -1,10 +1,7 @@
-let static = T =>
-`${T}, ${T}._O, ${T}._I`
+let static = T => `${T}, ${T}.O`
 
 module.exports = function wrapRecursive (options) {
-  // because of mutually recursive types we basically always have to do this
-  // if (this.fields.filter(f => f.type === this.name).length){
-    return `t.recursion<${static(this.name)}>('${this.name}', ${this.name} => ${options.fn(this)})`
-  //}
-  //return options.fn(this)
+  let args = (this.fields.filter(f => f.type === this.name).length) ? 'self' : '()'
+  return `t.recursion<${static(this.name)}>('${this.name}', ${args} => ${options.fn(this)})`
 }
+

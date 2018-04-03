@@ -17,19 +17,14 @@ export interface {{ toPascalCase name }}{{ toPascalCase ../name }}Args {
 
 
 namespace {{ name }} {
-  // input and output types
-  interface I{{#if hasInterfaces}} extends {{#each interfaces}}{{this}}{{#unless @last}},{{/unless}}{{/each}}{{/if}} {
-    {{> inputFields fields }}
-  }
-  interface O{{#if hasInterfaces}} extends {{#each interfaces}}{{this}}{{#unless @last}},{{/unless}}{{/each}}{{/if}} {
+  // output type needed for mutually recursive types
+  export interface O{{#if hasInterfaces}} extends {{#each interfaces}}{{this}}{{#unless @last}},{{/unless}}{{/each}}{{/if}} {
     {{> outputFields fields }}
   }
-  export type _I = I
-  export type _O = O
 }
 
 {{ multilineComment description }}
-const {{ name }} = {{#wrapRecursive}}{{#if hasInterfaces}}t.intersection([
+const {{ name }}: t.RecursiveType<t.Mixed, {{ name }}, {{ name }}.O> = {{#wrapRecursive}}{{#if hasInterfaces}}t.intersection([
 {{#each interfaces}}  {{this}},
 {{/each}}  {{/if}}{{> iotsFields fields parentName=name }}{{#if hasInterfaces}}
 ]){{/if}}{{/wrapRecursive}}

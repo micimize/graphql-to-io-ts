@@ -1,0 +1,30 @@
+{{#*inline "namespacify"}}
+{{/inline}}
+
+{{#each operations }}
+import { {{ toPascalCase name }} as _{{ toPascalCase name }} } from './{{ toLowerCase name }}.{{ toLowerCase operationType }}'
+{{/each }}
+
+export namespace Query {
+  {{#each operations }}{{#ifCond operationType '==' 'query' }}
+    export const {{ toPascalCase name }} = _{{ toPascalCase name}}
+  {{/ifCond}}{{/each }}
+}
+
+export namespace Mutation {
+  {{#each operations }}{{#ifCond operationType '==' 'mutation' }}
+    export const {{ toPascalCase name }} = _{{ toPascalCase name}}
+  {{/ifCond}}{{/each }}
+}
+
+export namespace Operation {
+  {{#each operations }}
+    export const {{ toPascalCase name }} = _{{ toPascalCase name}}
+  {{/each }}
+
+  export type operationType =
+    | 'query' 
+    | 'mutation' {{#each operations }}
+    | '{{ toPascalCase name }}' {{/each }}
+
+}

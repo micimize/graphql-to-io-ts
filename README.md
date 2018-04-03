@@ -36,21 +36,16 @@ export type Datetime = moment.Moment
 This is why I think `./src/io-types/generated/` makes a good target - it also gives you space to organize your generated types, like defining a universal decoder:
 ```typescript
 import * as t from 'io-ts'
-import { Mutation } from './generated/types/mutation.type'
-import { Query } from './generated/types/query.type'
+import { Operation } from './io-types/generated/documents'
 
-const Operation = t.union([
-  Mutation,
-  Query
-])
-
-type Op = { operationName: keyof Mutation | keyof Query }
+type Op = { operationName: Operation.operationType }
 
 export function decoder<O extends Op>(operation: O) {
   return ({ data, ...response }) => ({
       ...response,
-      data: Operation
-        .decode({ [operation.operationName]: data })
+      data: Operations[operation.operationName]
+        .Operation
+        .decode(data)
         .getOrElseL(errors => {
           let failures = failure(errors).join('\n');
           console.error(failures);
