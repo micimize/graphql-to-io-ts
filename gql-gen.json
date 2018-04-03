@@ -8,7 +8,8 @@
     "ID": "string"
   },
   "customHelpers": {
-    "iotsPrimitive": "node_modules/graphql-to-io-ts/helpers/io-ts-primative.js",
+    "iotsPrimitive": "node_modules/graphql-to-io-ts/helpers/io-ts-primitive.js",
+    "subtypeOrPrimitive": "node_modules/graphql-to-io-ts/helpers/subtype-or-primitive.js",
     "wrapRecursive": "node_modules/graphql-to-io-ts/helpers/io-ts-recursive.js",
     "eachBackwards": "node_modules/graphql-to-io-ts/helpers/each-backwards.js",
     "multilineComment": "node_modules/graphql-to-io-ts/helpers/multiline-comment.js",
