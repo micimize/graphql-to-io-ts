@@ -7,6 +7,13 @@ export enum {{name}}Enum {
   {{/unless}}{{/each}}
 }
 
+
 {{ multilineComment description }}
-export const {{ name }} = createEnum<{{name}}Enum>({{name}}Enum, '{{ name }}')
-export type {{ name }} = t.TypeOf<typeof {{ name }}>
+const {{ name }} = createEnum<{{name}}Enum>({{name}}Enum, '{{ name }}')
+type {{ name }} = t.TypeOf<typeof {{ name }}>
+
+namespace {{ name }} {
+  export type O = {{name}}Enum
+}
+
+export { {{ name }} }

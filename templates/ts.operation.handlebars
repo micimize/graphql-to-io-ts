@@ -30,10 +30,10 @@ export namespace {{ toPascalCase name }} {
   {{~/eachBackwards}}
 
   /* operation */
-  export type {{ toPascalCase operationType }} ={{#if hasFields}} {
+  export type {{ toPascalCase operationType }} = {
     // __typename: '{{ toPascalCase operationType }}'
-    {{> tsFields fields }}
-  }{{/if~}}
+  {{> tsFields fields }}
+  }
   {{> fragments this }}
 
   /* io-ts */
@@ -41,19 +41,20 @@ export namespace {{ toPascalCase name }} {
 
   // model types
   {{#eachBackwards innerModels }}
-  export const {{ modelType }} = t.intersection([ {{#if hasFields}} 
+  export const {{ modelType }} = t.intersection([  
     t.type({ __typename: {{#unless hasInlineFragments}}t.literal('{{
       schemaBaseType
     }}'){{else}}t.union([{{#each inlineFragments}}{{onType}}["__typename"]{{#unless @last}}, {{/unless}}{{/each}}])
   {{/unless}} }),
-      {{> iotsFields fields }},
-  {{~/if}}{{> iotsFragments this }}])
+  {{> iotsFields fields }},
+  {{> iotsFragments this }}])
   {{/eachBackwards}}
 
   // operation
-  export const {{ toPascalCase operationType }} = t.intersection([ {{#if hasFields}} 
+  export const {{ toPascalCase operationType }} = t.intersection([  
     // t.type({ __typename: t.literal('{{ toPascalCase operationType }}') }),
-    {{> iotsFields fields }}, {{/if}}{{> iotsFragments this }}])
+    {{> iotsFields fields }},
+    {{> iotsFragments this }}])
 
   // convenience alias for type agnostic use cases
   export const Operation = {{ toPascalCase operationType }}
