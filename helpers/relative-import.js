@@ -13,5 +13,7 @@ module.exports = function relativeImport ({ name, type, file }, { hash }) {
     structure[file] ||
     structure.root
   ) || '.'
-  return new SafeString(`import { ${name} } from './${ relativePath }/${ file }'`)
+  return new SafeString(`import { ${name} } from './${ relativePath }/${ file }'`
+    .replace(/(\.\/){2,}/, './', 'g')
+  )
 }

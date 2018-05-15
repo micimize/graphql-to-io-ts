@@ -1,10 +1,6 @@
 {{#*inline "fragments"}}
 {{#if hasFragmentsSpread}}{{#if hasFields}} & {{/if}}{{#each fragmentsSpread}}{{fragmentName}}.Fragment{{#unless @last}} & {{/unless}}{{/each}}{{/if}}{{#if hasInlineFragments}}{{#if hasFields}} & ({{/if}}{{#each inlineFragments}}{{onType}}{{#unless @last}} | {{/unless}}{{/each}}{{#if hasFields}}){{/if}}{{/if}}
 {{/inline}}
-{{#*inline "iotsFragments"}}
-{{#if hasFragmentsSpread}}{{#each fragmentsSpread}}{{fragmentName}}.Fragment{{#unless @last}},{{/unless}}
-{{/each}}{{/if}}{{#if hasInlineFragments}}{{#if hasFields}} & ({{/if}}{{#each inlineFragments}}{{onType}}{{#unless @last}} | {{/unless}}{{/each}}{{#if hasFields}}){{/if}}{{/if}}
-{{/inline}}
 
 import * as t from 'io-ts'
 {{#eachImport this }}
@@ -46,15 +42,17 @@ export namespace {{ toPascalCase name }} {
       schemaBaseType
     }}'){{else}}t.union([{{#each inlineFragments}}{{onType}}["__typename"]{{#unless @last}}, {{/unless}}{{/each}}])
   {{/unless}} }),
-  {{> iotsFields fields }},
-  {{> iotsFragments this }}])
+    {{> iotsFields fields }}
+  ])
+  {{> iotsFragments this }}
   {{/eachBackwards}}
 
   // operation
   export const {{ toPascalCase operationType }} = t.intersection([  
     // t.type({ __typename: t.literal('{{ toPascalCase operationType }}') }),
-    {{> iotsFields fields }},
-    {{> iotsFragments this }}])
+    {{> iotsFields fields }}
+  ])
+  {{> iotsFragments this }}
 
   // convenience alias for type agnostic use cases
   export const Operation = {{ toPascalCase operationType }}

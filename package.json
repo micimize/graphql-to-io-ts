@@ -6,8 +6,8 @@
     "io-ts": "^1.x"
   },
   "dependencies": {
-    "linewrap": "^0.2.1",
-    "@micimize/graphql-code-generator": "0.9.0-alpha.1"
+    "graphql-code-generator": "^0.9.1",
+    "linewrap": "^0.2.1"
   },
   "repository": {
     "type": "git",

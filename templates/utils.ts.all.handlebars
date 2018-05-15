@@ -7,5 +7,13 @@ export const createEnum = <E>(e: object, name: string): t.Type<E> => {
   Object.keys(e).forEach(k => {
     keys[e[k]] = null
   })
-  return t.keyof(keys, name) as any
+  return Object.assign({ _O: e }, t.keyof(keys, name)) as any
+}
+
+// https://github.com/gcanti/io-ts/issues/108
+export const pick = <F extends string, U extends t.UnionType<Array<t.InterfaceType<{ [K in F]: t.Any }, any>>, any>>(
+  union: U,
+  field: F
+): t.Type<any, t.TypeOf<U>[F]> => {
+  return t.union(union.types.map(type => type.props[field]))
 }
