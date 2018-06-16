@@ -17,10 +17,10 @@ namespace {{ name }} {
 }
 
 {{ multilineComment description }}
-const {{ name }}: t.RecursiveType<t.Mixed, {{ name }}, {{ name }}.O> = {{#wrapRecursive}}{{#if hasInterfaces}}t.intersection([
+const {{ name }}: t.RecursiveType<t.Mixed, {{ name }}, {{ name }}.O> = {{#iotsRecursive}}{{#if hasInterfaces}}t.intersection([
 {{#each interfaces}}  {{this}},
 {{/each}}  {{/if}}{{> iotsFields fields parentName=name }}{{#if hasInterfaces}}
-]){{/if}}{{/wrapRecursive}}
+]){{/if}}{{/iotsRecursive}}
 {{#each fields}}{{# if hasArguments }}
 export const {{ toPascalCase name }}{{ toPascalCase ../name }}Args = {{> iotsFields arguments }}
 {{/if}}{{/each}}

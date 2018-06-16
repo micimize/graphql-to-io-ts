@@ -8,9 +8,11 @@ import * as fragment from './fragment.handlebars';
 import * as enumTemplate from './enum.handlebars';
 import * as operation from './operation.handlebars';
 import * as type from './type.handlebars';
-import * as schema from './schema.handlebars';
 
+import * as schema from './schema.handlebars';
 import * as documents from './documents.handlebars';
+
+import * as index from './index.handlebars';
 
 export {
  createEnum,
@@ -24,7 +26,8 @@ export {
  operation,
  type,
  schema,
+ documents,
 
- documents
+ index
 
 }

@@ -3,8 +3,9 @@ type Integer = number
 
 import {
 {{#each scalars}}
-  {{ multilineComment description }}
-  {{ name }}
+
+{{ multilineComment description }}
+  {{ name }},
 {{/each}}
 } from '../CustomScalars'
 
@@ -20,6 +21,7 @@ import {
   {{~> type }}
 
 {{/each}}
+{{!--
 {{~#each types}}
   {{~#each fields}}
     {{~# if hasArguments }}
@@ -31,6 +33,7 @@ export interface {{ toPascalCase name }}{{ toPascalCase ../name }}Args {
     {{/if}}
   {{/each}}
 {{/each}}
+--}}
 
 {{~> createEnum }}
 
