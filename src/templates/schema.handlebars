@@ -7,18 +7,36 @@ import {
 {{ multilineComment description }}
   {{ name }},
 {{/each}}
-} from '../CustomScalars'
+} from '{{ config.customScalars }}'
 
-{{#each interfaces}}
-  {{~> type }}
+{{> createEnum }}
+
+/* Enums */
+{{#each enums}}
+  {{> enum }}
 
 {{/each}}
-{{#each types}}
-  {{~> type }}
+{{#each unions}}
+{{ toComment description }}
+export type {{ name }} = {{#each possibleTypes}}{{this}}{{#unless @last}} | {{/unless}}{{/each}};
 
 {{/each}}
+
+/* Input Types */
 {{#each inputTypes}}
-  {{~> type }}
+  {{> type }}
+
+{{/each}}
+
+/* Interfaces */
+{{#each interfaces}}
+  {{> type }}
+
+{{/each}}
+
+/* Types */
+{{#each types}}
+  {{> type }}
 
 {{/each}}
 {{!--
@@ -35,13 +53,3 @@ export interface {{ toPascalCase name }}{{ toPascalCase ../name }}Args {
 {{/each}}
 --}}
 
-{{~> createEnum }}
-
-{{#each enums}}
-  {{~> enum }}
-{{/each}}
-{{#each unions}}
-{{ toComment description }}
-export type {{ name }} = {{#each possibleTypes}}{{this}}{{#unless @last}} | {{/unless}}{{/each}};
-
-{{/each}}

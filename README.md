@@ -1,19 +1,28 @@
 # graphql-to-io-ts
-Thin wrapper around [graphql-code-generator](https://github.com/dotansimha/graphql-code-generator) that utilizes [custom templates](https://github.com/dotansimha/graphql-code-generator/blob/master/packages/graphql-codegen-generators/CUSTOM_TEMPLATES.md) to generate both native typescript and [io-ts](https://github.com/gcanti/io-ts) types with the included templates.
+[Custom templates](https://github.com/dotansimha/graphql-code-generator/blob/master/packages/graphql-codegen-generators/CUSTOM_TEMPLATES.md) for [graphql-code-generator](https://github.com/dotansimha/graphql-code-generator) for generating both native typescript and [io-ts](https://github.com/gcanti/io-ts) types.
 
 ## usage
-`npm install graphql-to-io-ts@0.1.3`, then put something like the following in your `package.json`, then run `yarn generate-types`:
+```bash
+yarn add -D graphql-code-generator graphql graphql-to-io-ts@0.2.0
+```, then put something like the following in your `package.json`, then run `yarn generate-types`:
 ```json
 {
   "scripts": {
-    "generate-types": "graphql-to-io-ts --file schema.json --out ./src/io-types/generated/ './src/**/*.gql'"
+    "generate-types": "gql-gen --template graphql-to-io-ts --schema ./schema/__generated__/schema.json --out schema/__generated__/io-types.ts './src/*/*/*.gql' --customScalars src/io-types/scalars"
   }
 }
 ```
-the `bin` file just prefixes [the regular cli arguments to `gql-gen`](https://github.com/dotansimha/graphql-code-generator#usage-examples) so that it'll use the configuration, helpers, and templates included here.
-
 ## Custom Scalars
-All custom scalar types should be defined with `io-ts` and exported from a file above the `--out` target called `CustomScalars.ts`:
+The templates support a custom generator config for custom scalars that you need to define in your `gql-gen.json`:
+```json
+{
+  "generatorConfig": {
+    "customScalars": "src/io-types/scalars"
+  }
+}
+```
+
+It needs to export all the custom scalars used in your schema:
 ```typescript
 import * as t from 'io-ts'
 import moment from 'moment'
@@ -33,12 +42,13 @@ export const Datetime = new t.Type<moment.Moment, string>(
 export type Datetime = moment.Moment
 ```
 
-This is why I think `./src/io-types/generated/` makes a good target - it also gives you space to organize your generated types, like defining a universal decoder:
+## Examples
+Tranit decoding, i.e. for apollo-client:
 ```typescript
 import * as t from 'io-ts'
-import { Operation } from './io-types/generated/documents'
+import { Operations } from 'schema/__generated__/io-types'
 
-type Op = { operationName: Operation.operationType }
+type Op = { operationName: Operations.operationType }
 
 export function decoder<O extends Op>(operation: O) {
   return ({ data, ...response }) => ({
@@ -54,6 +64,4 @@ export function decoder<O extends Op>(operation: O) {
     })
 }
 ```
-
-Note that in typescript you can't `import` from outside the project directory.
 
