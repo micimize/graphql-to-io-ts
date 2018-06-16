@@ -1,4 +1,4 @@
-module.exports = function eachBackwards(context, options) {
+export default function eachBackwards(context, options) {
   var ret = "";
 
   for(var i=context.length - 1, j=0; i>=j; i--) {

@@ -6,12 +6,6 @@
 {{/each}}{{/if}}{{#if hasInlineFragments}}{{#if hasFields}} & ({{/if}}{{#each inlineFragments}}{{onType}}{{#unless @last}} | {{/unless}}{{/each}}{{#if hasFields}}){{/if}}{{/if}}
 {{/inline}}
 
-import * as t from 'io-ts'
-{{#eachImport this }}
-{{ relativeImport this path='./'}}
-{{/eachImport}}
-type Integer = number
-
 export namespace {{ toPascalCase name }} {
   export type Variables = {
     {{> tsFields variables }}

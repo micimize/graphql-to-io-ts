@@ -6,7 +6,7 @@ const primitives = {
   "ID": "string"
 }
 
-module.exports = function subtypeOrPrimitive (type, { hash: { subtype = '' } = {} } = {}) {
+export default function subtypeOrPrimitive (type, { hash: { subtype = '' } = {} } = {}) {
   return (
     primitives[type] ||
     type && `${type}${subtype}` ||

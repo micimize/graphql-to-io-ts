@@ -1,6 +1,3 @@
-import * as t from 'io-ts'
-import { createEnum } from './utils'
-
 {{ multilineComment description }}
 export enum {{name}}Enum {
   {{#each values }}{{value}} = '{{ value }}',{{#unless @last}}

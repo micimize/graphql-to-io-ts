@@ -1,10 +1,3 @@
-import * as t from 'io-ts'
-{{#eachImport this }}
-{{ relativeImport this path='./types'}}
-{{/eachImport}}
-
-type Integer = number
-
 {{ multilineComment description }}
 interface {{ name }}{{#if hasInterfaces}} extends {{#each interfaces}}{{this}}{{#unless @last}},{{/unless}}{{/each}}{{/if}} {
   {{> tsFields fields }}

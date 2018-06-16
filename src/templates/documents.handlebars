@@ -1,10 +1,3 @@
-{{#*inline "namespacify"}}
-{{/inline}}
-
-{{#each operations }}
-import { {{ toPascalCase name }} as _{{ toPascalCase name }} } from './{{ toLowerCase name }}.{{ toLowerCase operationType }}'
-{{/each }}
-
 export namespace Query {
   {{#each operations }}{{#ifCond operationType '==' 'query' }}
     export const {{ toPascalCase name }} = _{{ toPascalCase name}}
