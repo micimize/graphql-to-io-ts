@@ -3,7 +3,7 @@
 
 ## usage
 ```bash
-yarn add -D graphql-code-generator graphql graphql-to-io-ts@0.2.0
+yarn add -D graphql-code-generator graphql graphql-to-io-ts@0.2.1
 ```, then put something like the following in your `package.json`, then run `yarn generate-types`:
 ```json
 {
