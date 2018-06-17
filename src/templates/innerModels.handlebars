@@ -1,0 +1,10 @@
+/* model types */
+{{#eachBackwards innerModels }}
+export const {{ modelType }} = t.intersection([  
+  t.type({ __typename: {{#unless hasInlineFragments}}t.literal('{{
+    schemaBaseType
+  }}'){{else}}t.union([{{#each inlineFragments}}{{onType}}["__typename"]{{#unless @last}}, {{/unless}}{{/each}}])
+{{/unless}} }),
+{{> iotsFields fields }},
+{{> iotsFragments this }}])
+{{/eachBackwards}}

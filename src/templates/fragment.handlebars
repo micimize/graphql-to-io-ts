@@ -1,29 +1,35 @@
-{{#*inline "selectionSet"}}
-{{#each this}}
-{{ name }}{{#unless isRequired}}?{{/unless}}: {{ toPrimitive type }}{{#if isArray}}[]{{/if}}{{#unless isRequired}} | null{{/unless}}; {{#if description }}  // {{description}}{{/if}}
-{{/each}}
-{{/inline}}
-
 {{#*inline "fragments"}}
 {{#if hasFragmentsSpread}}{{#if hasFields}} & {{/if}}{{#each fragmentsSpread}}{{fragmentName}}.Fragment{{#unless @last}} & {{/unless}}{{/each}}{{/if}}{{#if hasInlineFragments}}{{#if hasFields}} & ({{/if}}{{#each inlineFragments}}{{onType}}{{#unless @last}} | {{/unless}}{{/each}}{{#if hasFields}}){{/if}}{{/if}}
 {{/inline}}
 
-{{#eachImport this }}
-{{ relativeImport this path='./'}}
-{{/eachImport}}
+{{#*inline "iotsFragments"}}
+{{#if hasFragmentsSpread}}{{#each fragmentsSpread}}{{fragmentName}}.Fragment{{#unless @last}},{{/unless}}
+{{/each}}{{/if}}{{#if hasInlineFragments}}{{#if hasFields}} & ({{/if}}{{#each inlineFragments}}{{onType}}{{#unless @last}} | {{/unless}}{{/each}}{{#if hasFields}}){{/if}}{{/if}}
+{{/inline}}
+
 export namespace {{name}} {
-  export type Fragment = {
+  export type Fragment ={{#if hasFields}} {
     __typename?: "{{ onType }}";
-    {{> selectionSet fields }}
-  }{{> fragments this }}
+    {{> tsFields fields }}
+  }{{/if}}{{> fragments this }}
+  /* model types */
   {{#each innerModels }}
-  export type {{ modelType }} = {
+  export type {{ modelType }} ={{#if hasFields}} {
   {{#unless hasInlineFragments}}
     __typename?: "{{ schemaBaseType }}";
   {{else}}
     __typename?: {{#each inlineFragments}}{{onType}}["__typename"]{{#unless @last}} | {{/unless}}{{/each}};
   {{/unless}}
-    {{> selectionSet fields }}
-  }{{> fragments this }}
+    {{> tsFields fields }}
+  }{{/if}}{{> fragments this }}
   {{/each}}
+  /* io-ts types */
+  {{> innerModels }}
+
+  /* Fragment */
+  export const Fragment = t.intersection([  
+    // t.type({ __typename: t.literal('{{ toPascalCase operationType }}') }),
+    {{> iotsFields fields }},
+    {{> iotsFragments this }}])
+
 }

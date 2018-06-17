@@ -1,23 +1,34 @@
+{{#each fragments }}
+  {{> fragment }}
+  let __{{ name }} = {{ name }}
+{{/each}}
+
+export namespace Fragments {
+  {{#each fragments }}
+    export const {{ name }} = __{{ name }}
+  {{/each }}
+}
+
 {{#each operations}}
   {{> operation }}
-  let __{{ toPascalCase name }} = {{ toPascalCase name}}
+  let __{{ toPascalCase name }} = {{ toPascalCase name }}
 {{/each}}
 
 export namespace Queries {
   {{#each operations }}{{#ifCond operationType '==' 'query' }}
-    export const {{ toPascalCase name }} = __{{ toPascalCase name}}
+    export const {{ toPascalCase name }} = __{{ toPascalCase name }}
   {{/ifCond}}{{/each }}
 }
 
 export namespace Mutations {
   {{#each operations }}{{#ifCond operationType '==' 'mutation' }}
-    export const {{ toPascalCase name }} = __{{ toPascalCase name}}
+    export const {{ toPascalCase name }} = __{{ toPascalCase name }}
   {{/ifCond}}{{/each }}
 }
 
 export namespace Operations {
   {{#each operations }}
-    export const {{ toPascalCase name }} = __{{ toPascalCase name}}
+    export const {{ toPascalCase name }} = __{{ toPascalCase name }}
   {{/each }}
 
   export type operationType =
