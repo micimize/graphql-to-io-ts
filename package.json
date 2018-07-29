@@ -1,6 +1,6 @@
 {
   "name": "graphql-to-io-ts",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "generate typescript and io-ts types using graphql-code-generator",
   "peerDependencies": {
     "io-ts": "^1.x"
