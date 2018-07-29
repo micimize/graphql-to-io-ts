@@ -8,7 +8,7 @@
 
 export namespace {{ toPascalCase name }} {
   export type Variables = {
-    {{> tsFields variables }}
+    {{> tsFields variables}}
   }
 
   /* model types */
@@ -26,19 +26,19 @@ export namespace {{ toPascalCase name }} {
   /* operation */
   export type {{ toPascalCase operationType }} = {
     // __typename: '{{ toPascalCase operationType }}'
-  {{> tsFields fields }}
+  {{> tsFields fields}}
   }
   {{> fragments this }}
 
   /* io-ts */
-  export const Variables = {{> iotsFields variables }}
+  export const Variables = {{> iotsFields variables typeName=(concat (toPascalCase name) '.' 'Variables')}}
 
   {{> innerModels }}
 
   // operation
   export const {{ toPascalCase operationType }} = t.intersection([  
     // t.type({ __typename: t.literal('{{ toPascalCase operationType }}') }),
-    {{> iotsFields fields }},
+    {{> iotsFields fields typeName=(concat (toPascalCase name) (toPascalCase operationType))}},
     {{> iotsFragments this }}])
 
   // convenience alias for type agnostic use cases

@@ -5,6 +5,6 @@ export const {{ modelType }} = t.intersection([
     schemaBaseType
   }}'){{else}}t.union([{{#each inlineFragments}}{{onType}}["__typename"]{{#unless @last}}, {{/unless}}{{/each}}])
 {{/unless}} }),
-{{> iotsFields fields }},
+{{> iotsFields fields typeName=(concat ../name '.' modelType)}},
 {{> iotsFragments this }}])
 {{/eachBackwards}}

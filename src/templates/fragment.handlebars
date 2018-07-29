@@ -29,7 +29,7 @@ export namespace {{name}} {
   /* Fragment */
   export const Fragment = t.intersection([  
     // t.type({ __typename: t.literal('{{ toPascalCase operationType }}') }),
-    {{> iotsFields fields }},
+    {{> iotsFields fields typeName=(concat name 'Fragment') }},
     {{> iotsFragments this }}])
 
 }

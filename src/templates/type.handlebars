@@ -19,10 +19,10 @@ namespace {{ name }} {
 {{ multilineComment description }}
 const {{ name }}: t.RecursiveType<t.Mixed, {{ name }}, {{ name }}.O> = {{#iotsRecursive}}{{#if hasInterfaces}}t.intersection([
 {{#each interfaces}}  {{this}},
-{{/each}}  {{/if}}{{> iotsFields fields parentName=name }}{{#if hasInterfaces}}
+{{/each}}  {{/if}}{{> iotsFields fields typeName=name }}{{#if hasInterfaces}}
 ]){{/if}}{{/iotsRecursive}}
 {{#each fields}}{{# if hasArguments }}
-export const {{ toPascalCase name }}{{ toPascalCase ../name }}Args = {{> iotsFields arguments }}
+export const {{ toPascalCase name }}{{ toPascalCase ../name }}Args = {{> iotsFields arguments typeName=(concat (toPascalCase name) "Args") }}
 {{/if}}{{/each}}
 
 export { {{ name }} }
