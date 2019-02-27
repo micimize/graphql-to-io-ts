@@ -1,6 +1,6 @@
 # graphql-to-io-ts
 
-## This project is currently outdated, and it will be some time before I can get back to it.
+### **NOTE**: This project is currently outdated, and it will be some time before I can get back to it.
 
 [Custom templates](https://github.com/dotansimha/graphql-code-generator/blob/master/packages/graphql-codegen-generators/CUSTOM_TEMPLATES.md) for [graphql-code-generator](https://github.com/dotansimha/graphql-code-generator) for generating both native typescript and [io-ts](https://github.com/gcanti/io-ts) types.
 
